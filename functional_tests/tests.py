@@ -3,18 +3,19 @@ Created on May 21, 2015
 
 @author: talaniz
 '''
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
         
     def tearDown(self):
+        self.browser.refresh()
         self.browser.quit()
         
     def check_for_row_in_list_table(self, row_text):
@@ -65,6 +66,7 @@ class NewVisitorTest(LiveServerTestCase):
         
         ## We use a new browser session to make sure that no information
         ## of Edith's is coming thorugh from cookies etc
+        self.browser.refresh()
         self.browser.quit()
         self.browser = webdriver.Firefox()
         
@@ -112,5 +114,5 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
             512,
-            delta=5
+            delta=7
         )
