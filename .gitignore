@@ -3,7 +3,6 @@
 *.pyc
 *.pyo
 db.sqlite3
-*.txt
 =======
 # Byte-compiled / optimized / DLL files
 __pycache__/
