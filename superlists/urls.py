@@ -16,9 +16,15 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from lists.views import ListLoginView, ListLogoutView
+from lists import views
 
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('authtools.urls')),
+    url(r'^login$', ListLoginView.as_view(template_name='login.html'), name='login'),
+    url(r'^logout$', ListLogoutView.as_view(), name='logout'),
+    url(r'^register$', views.register, name='register'), # new register url
     url(r'^$', 'lists.views.home_page', name='home'),
     url(r'^lists/', include('lists.urls')),
 ]
